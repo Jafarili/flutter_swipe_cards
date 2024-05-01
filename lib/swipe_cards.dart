@@ -17,6 +17,8 @@ class SwipeCards extends StatefulWidget {
   final bool upSwipeAllowed;
   final bool leftSwipeAllowed;
   final bool rightSwipeAllowed;
+  final bool onlyHorizontalSwipe;
+  final bool onlyRotateDown;
 
   SwipeCards({
     Key? key,
@@ -30,6 +32,8 @@ class SwipeCards extends StatefulWidget {
     this.upSwipeAllowed = false,
     this.leftSwipeAllowed = true,
     this.rightSwipeAllowed = true,
+    this.onlyHorizontalSwipe = false,
+    this.onlyRotateDown = false,
     this.itemChanged,
   }) : super(key: key);
 

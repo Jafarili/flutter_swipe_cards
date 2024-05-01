@@ -298,7 +298,7 @@ class _DraggableCardState extends State<DraggableCard>
   double _rotation(Rect? dragBounds) {
     if (dragStart != null) {
       final rotationCornerMultiplier =
-         widget.onlyRotateDown && dragStart!.dy >= dragBounds!.top + (dragBounds.height / 2) ? -1 : 1;
+         !widget.onlyRotateDown && dragStart!.dy >= dragBounds!.top + (dragBounds.height / 2) ? -1 : 1;
       return (pi / 8) *
           (cardOffset!.dx / dragBounds!.width) *
           rotationCornerMultiplier;

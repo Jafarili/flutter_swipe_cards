@@ -192,6 +192,8 @@ class _SwipeCardsState extends State<SwipeCards> {
             leftSwipeAllowed: widget.leftSwipeAllowed,
             rightSwipeAllowed: widget.rightSwipeAllowed,
             isBackCard: true,
+            onlyHorizontalSwipe: widget.onlyHorizontalSwipe,
+            onlyRotateDown: widget.onlyRotateDown,
           ),
         if (widget.matchEngine.currentItem != null)
           DraggableCard(
@@ -207,6 +209,8 @@ class _SwipeCardsState extends State<SwipeCards> {
             leftSwipeAllowed: widget.leftSwipeAllowed,
             rightSwipeAllowed: widget.rightSwipeAllowed,
             isBackCard: false,
+            onlyHorizontalSwipe: widget.onlyHorizontalSwipe,
+            onlyRotateDown: widget.onlyRotateDown,
           )
       ],
     );

@@ -22,6 +22,8 @@ class DraggableCard extends StatefulWidget {
   final bool rightSwipeAllowed;
   final EdgeInsets padding;
   final bool isBackCard;
+  final bool onlyHorizontalSwipe;
+  final bool onlyRotateDown;
 
   DraggableCard(
       {this.card,
@@ -37,6 +39,8 @@ class DraggableCard extends StatefulWidget {
       this.leftSwipeAllowed = true,
       this.rightSwipeAllowed = true,
       this.isBackCard = false,
+      this.onlyHorizontalSwipe = false,
+      this.onlyRotateDown = false,
       this.padding = EdgeInsets.zero});
 
   @override
@@ -221,7 +225,12 @@ class _DraggableCardState extends State<DraggableCard>
       }
 
       dragPosition = details.globalPosition;
-      cardOffset = dragPosition! - dragStart!;
+
+      if (widget.onlyHorizontalSwipe) {
+        cardOffset = Offset(dragPosition!.dx - dragStart!.dx, 0.0);
+      } else {
+        cardOffset = dragPosition! - dragStart!;
+      }
 
       if (null != widget.onSlideUpdate) {
         widget.onSlideUpdate!(cardOffset!.distance);
@@ -289,9 +298,9 @@ class _DraggableCardState extends State<DraggableCard>
   double _rotation(Rect? dragBounds) {
     if (dragStart != null) {
       final rotationCornerMultiplier =
-          dragStart!.dy >= dragBounds!.top + (dragBounds.height / 2) ? -1 : 1;
+         !widget.onlyRotateDown && dragStart!.dy >= dragBounds!.top + (dragBounds.height / 2) ? -1 : 1;
       return (pi / 8) *
-          (cardOffset!.dx / dragBounds.width) *
+          (cardOffset!.dx / dragBounds!.width) *
           rotationCornerMultiplier;
     } else {
       return 0.0;

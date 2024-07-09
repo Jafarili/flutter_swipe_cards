@@ -24,6 +24,7 @@ class DraggableCard extends StatefulWidget {
   final bool isBackCard;
   final bool onlyHorizontalSwipe;
   final bool onlyRotateDown;
+  final bool Function(SlideDirection? direction)? canSwipe;
 
   DraggableCard(
       {this.card,
@@ -41,6 +42,7 @@ class DraggableCard extends StatefulWidget {
       this.isBackCard = false,
       this.onlyHorizontalSwipe = false,
       this.onlyRotateDown = false,
+      this.canSwipe = null,
       this.padding = EdgeInsets.zero});
 
   @override
@@ -118,6 +120,13 @@ class _DraggableCardState extends State<DraggableCard>
       ..addStatusListener((AnimationStatus status) {
         if (status == AnimationStatus.completed) {
           setState(() {
+            if (widget.canSwipe != null) {
+              if (widget.canSwipe!(slideOutDirection) == false) {
+                slideBackStart = cardOffset;
+                slideBackAnimation.forward(from: 0.0);
+                return;
+              }
+            }
             dragStart = null;
             dragPosition = null;
             slideOutTween = null;

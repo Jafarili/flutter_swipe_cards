@@ -19,6 +19,7 @@ class SwipeCards extends StatefulWidget {
   final bool rightSwipeAllowed;
   final bool onlyHorizontalSwipe;
   final bool onlyRotateDown;
+  final bool Function(SlideDirection? direction)? canSwipe;
 
   SwipeCards({
     Key? key,
@@ -35,6 +36,7 @@ class SwipeCards extends StatefulWidget {
     this.onlyHorizontalSwipe = false,
     this.onlyRotateDown = false,
     this.itemChanged,
+    this.canSwipe = null,
   }) : super(key: key);
 
   @override
@@ -194,6 +196,7 @@ class _SwipeCardsState extends State<SwipeCards> {
             isBackCard: true,
             onlyHorizontalSwipe: widget.onlyHorizontalSwipe,
             onlyRotateDown: widget.onlyRotateDown,
+            canSwipe: widget.canSwipe,
           ),
         if (widget.matchEngine.currentItem != null)
           DraggableCard(
@@ -211,6 +214,7 @@ class _SwipeCardsState extends State<SwipeCards> {
             isBackCard: false,
             onlyHorizontalSwipe: widget.onlyHorizontalSwipe,
             onlyRotateDown: widget.onlyRotateDown,
+            canSwipe: widget.canSwipe,
           )
       ],
     );

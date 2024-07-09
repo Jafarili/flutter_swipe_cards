@@ -19,6 +19,7 @@ class SwipeCards extends StatefulWidget {
   final bool rightSwipeAllowed;
   final bool onlyHorizontalSwipe;
   final bool onlyRotateDown;
+  final Function(SwipeItem previousItem, int previousIndex)? afterItemChanged;
 
   SwipeCards({
     Key? key,
@@ -34,6 +35,7 @@ class SwipeCards extends StatefulWidget {
     this.rightSwipeAllowed = true,
     this.onlyHorizontalSwipe = false,
     this.onlyRotateDown = false,
+    this.afterItemChanged = null,
     this.itemChanged,
   }) : super(key: key);
 
@@ -160,10 +162,16 @@ class _SwipeCardsState extends State<SwipeCards> {
           widget.matchEngine.nextItem!, widget.matchEngine._nextItemIndex!);
     }
 
+    int previousIndex = widget.matchEngine._currentItemIndex!;
+    SwipeItem previousItem = widget.matchEngine.currentItem!;
+
     widget.matchEngine.cycleMatch();
+
     if (widget.matchEngine.currentItem == null) {
       widget.onStackFinished();
     }
+
+    widget.afterItemChanged?.call(previousItem, previousIndex);
   }
 
   SlideDirection? _desiredSlideOutDirection() {

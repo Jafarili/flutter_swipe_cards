@@ -186,6 +186,7 @@ class _SwipeCardsState extends State<SwipeCards> {
       children: <Widget>[
         if (widget.matchEngine.nextItem != null)
           DraggableCard(
+            swipeItem: widget.matchEngine.nextItem!,
             isDraggable: false,
             card: _buildBackCard(),
             upSwipeAllowed: widget.upSwipeAllowed,
@@ -197,6 +198,7 @@ class _SwipeCardsState extends State<SwipeCards> {
           ),
         if (widget.matchEngine.currentItem != null)
           DraggableCard(
+            swipeItem: widget.matchEngine.currentItem!,
             card: _buildFrontCard(),
             likeTag: widget.likeTag,
             nopeTag: widget.nopeTag,
@@ -264,6 +266,7 @@ class SwipeItem extends ChangeNotifier {
   final Function? nopeAction;
   final Future Function(SlideRegion? slideRegion)? onSlideUpdate;
   Decision decision = Decision.undecided;
+  Offset? cardOffset = Offset.zero;
 
   SwipeItem({
     this.content,
@@ -311,6 +314,7 @@ class SwipeItem extends ChangeNotifier {
   }
 
   void resetMatch() {
+    cardOffset = Offset.zero;
     if (decision != Decision.undecided) {
       decision = Decision.undecided;
       notifyListeners();

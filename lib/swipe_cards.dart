@@ -280,32 +280,38 @@ class SwipeItem extends ChangeNotifier {
     notifyListeners();
   }
 
-  void like() {
+  void like({bool callAction = true}) {
     if (decision == Decision.undecided) {
       decision = Decision.like;
-      try {
-        likeAction?.call();
-      } catch (e) {}
+      if (callAction) {
+        try {
+          likeAction?.call();
+        } catch (e) {}
+      }
       notifyListeners();
     }
   }
 
-  void nope() {
+  void nope({bool callAction = true}) {
     if (decision == Decision.undecided) {
       decision = Decision.nope;
-      try {
-        nopeAction?.call();
-      } catch (e) {}
+      if (callAction) {
+        try {
+          nopeAction?.call();
+        } catch (e) {}
+      }
       notifyListeners();
     }
   }
 
-  void superLike() {
+  void superLike({bool callAction = true}) {
     if (decision == Decision.undecided) {
       decision = Decision.superLike;
-      try {
-        superlikeAction?.call();
-      } catch (e) {}
+      if (callAction) {
+        try {
+          superlikeAction?.call();
+        } catch (e) {}
+      }
       notifyListeners();
     }
   }
